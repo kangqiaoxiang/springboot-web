@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.hand.mapper.UserMapper">
+ 	<!-- 注册用户 -->
+ 	<insert id="registerUser" parameterType="map">
+ 		insert into cux_users 
+ 		(user_name,password,sex,age,phone_number,creation_date,last_update_date,comments)
+ 		values
+ 		(#{user_name},#{password},#{sex},#{age},#{phone_number},#{creation_date},#{last_update_date },#{comments})
+ 	</insert>
+ 	<!-- 用户登录 -->
+ 	<select id="login" parameterType="map" resultType="com.hand.pojo.User">
+ 		select * from cux_users where user_name=#{user_name} and password=#{password}
+ 	</select>
+ 	<!-- 显示用户基本信息 -->
+ 	<select id="showData" parameterType="map" resultType="map">
+ 		select user_id,user_name,password,sex,age,phone_number,cast(creation_date as char(20)) creation_date,
+ 		cast(last_update_date as char(20)) last_update_date, comments from cux_users where user_id = #{user_id}
+ 	</select>
+ 	<!-- 更新用户信息 -->
+ 	<update id="updatedUser" parameterType="map">
+ 		update cux_users set user_name=#{user_name},password=#{password},sex=#{sex},age=#{age},phone_number=#{phone_number},
+ 		comments=#{comments},last_update_date = #{last_update_date } where user_id = #{user_id}
+ 	</update>
+ </mapper>

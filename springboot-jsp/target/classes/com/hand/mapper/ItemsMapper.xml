@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.hand.mapper.ItemsMapper">
+ 	<select id="showTodo" parameterType="int" resultType="map">
+ 		select to_item_id,user_id,todo_item_title,todo_item_content,priority,
+ 		cast(creation_date as char(20)) creation_date,cast(last_update_date as char(20)) last_update_date,comments from cux_todo_items where user_id = #{user_id}
+ 	</select>
+ 	<!-- 新增代办事项 -->
+ 	<insert id="itemsIncre" parameterType="map">
+ 		insert into cux_todo_items(user_id,todo_item_title,todo_item_content,priority,creation_date,last_update_date,comments)
+ 		values(#{user_id},#{todo_item_title},#{todo_item_content},#{priority},#{creation_date},#{last_update_date},#{comments});
+ 	</insert>
+ 	<!-- 删除代办请求 -->
+ 	<delete id="deleteItems" parameterType="map" >
+ 		delete  from cux_todo_items where to_item_id = #{ to_item_id}
+ 	</delete>
+ 	<!-- 查看被选事项 -->
+ 	<select id="searchItem" parameterType="map" resultType="map">
+ 		select * from cux_todo_items where to_item_id = #{ to_item_id}
+ 	</select>
+ 	<!-- 修改代办事项 -->
+ 	<update id="updateItem" parameterType="map">
+ 		update cux_todo_items set todo_item_title=#{todo_item_title},todo_item_content=#{todo_item_content},
+ 		priority=#{priority},last_update_date=#{last_update_date},comments=#{comments} where to_item_id = #{ to_item_id}
+ 	</update>
+ </mapper>
